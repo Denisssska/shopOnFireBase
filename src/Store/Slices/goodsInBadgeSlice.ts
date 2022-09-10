@@ -20,15 +20,15 @@ export type InitialStateType = {
 export const addGoodsInBadgeTC = createAsyncThunk('goods/addGoodsInBadgeTC', async (good: InitialStateType, thunkAPI) => {
     try {
         await thunkAPI.dispatch(addGoodsInBadge({...good,inBadge:true}))
-        await thunkAPI.dispatch(changeInBadgeTC(true))
+        await thunkAPI.dispatch(changeInBadgeTC(good))
     } catch (e) {
         console.log(e)
     }
 })
-export const removeGoodsFromBadgeTC = createAsyncThunk('goods/removeGoodsFromBadgeTC', async (arg:{id:string}, thunkAPI) => {
+export const removeGoodsFromBadgeTC = createAsyncThunk('goods/removeGoodsFromBadgeTC', async (good:InitialStateType, thunkAPI) => {
     try {
-        await thunkAPI.dispatch(removeGoodFromBadge({id:arg.id}))
-        await thunkAPI.dispatch(changeInBadgeTC(false))
+        await thunkAPI.dispatch(removeGoodFromBadge(good))
+         await thunkAPI.dispatch(changeInBadgeTC({...good,inBadge:false}))
     } catch (e) {
         console.log(e)
     }

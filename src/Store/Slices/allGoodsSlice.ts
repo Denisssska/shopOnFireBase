@@ -8,9 +8,9 @@ export const addGoodsTC = createAsyncThunk('allGoods/addGoodsTC', async (goods: 
         console.log(e)
     }
 })
-export const changeInBadgeTC = createAsyncThunk('allGoods/changeInBadgeTC', async (inBadge:boolean, thunkAPI) => {
+export const changeInBadgeTC = createAsyncThunk('allGoods/changeInBadgeTC', async (good:InitialStateType, thunkAPI) => {
     try {
-        return await thunkAPI.dispatch(changeInBadge({inBadge}))
+        return await thunkAPI.dispatch(changeInBadge(good))
     } catch (e) {
         console.log(e)
     }

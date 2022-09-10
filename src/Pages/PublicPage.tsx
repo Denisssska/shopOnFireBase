@@ -36,11 +36,11 @@ export const PublicPage = React.memo(() => {
     const dispatch = useAppDispatch()
 
     const addInBadge = useCallback((good: InitialStateType) => {
-        dispatch(addGoodsInBadgeTC(good))
+        dispatch(addGoodsInBadgeTC({...good,inBadge:true}))
 
     }, [])
     // console.log(goodsFromBadge)
-    //console.log(allGoods)
+    console.log(allGoods)
 
     return user ? (
         <Box>

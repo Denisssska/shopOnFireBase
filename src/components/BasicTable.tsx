@@ -12,7 +12,7 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import {ChangeEvent, useState} from "react";
 import {useAppDispatch} from "../Hooks/Hooks";
-import {removeGoodFromBadge, removeGoodsFromBadgeTC} from "../Store/Slices/goodsInBadgeSlice";
+import {InitialStateType, removeGoodFromBadge, removeGoodsFromBadgeTC} from "../Store/Slices/goodsInBadgeSlice";
 
 export const BasicTable = React.memo(() => {
 
@@ -21,10 +21,13 @@ export const BasicTable = React.memo(() => {
     const rows = useGoodsFromBadge()
     const dispatch = useAppDispatch()
     const rowsPrice = rows.map(item => item.price)
-    const sum = rowsPrice.sort((a, b) => a + b)
+    const sum = rowsPrice.reduce((acc, number) => acc + number, 0);
     console.log(rowsPrice)
-    const deleteGoodsFromBadge = (id: string) => {
-        dispatch(removeGoodsFromBadgeTC({id}))
+    // const deleteGoodsFromBadge = (id: string) => {
+    //     dispatch(removeGoodsFromBadgeTC({id}))
+    // }
+    const deleteGoodsFromBadge = (good:InitialStateType) => {
+        dispatch(removeGoodsFromBadgeTC(good))
     }
     const changeNumber = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setNumber(+e.currentTarget.value)
@@ -78,7 +81,7 @@ export const BasicTable = React.memo(() => {
                                        align="center">{row.price + newPrice}</TableCell>
                             <TableCell sx={{padding: 2}} align="center">
                                 <Button
-                                    onClick={() => deleteGoodsFromBadge(row.id)} variant='outlined'>Удалить</Button>
+                                    onClick={() => deleteGoodsFromBadge(row)} variant='outlined'>Удалить</Button>
                             </TableCell>
 
                         </TableRow>
