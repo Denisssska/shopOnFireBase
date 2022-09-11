@@ -12,10 +12,7 @@ import {useAppDispatch} from "./Hooks/Hooks";
 function App() {
     const dispatch = useAppDispatch()
     useEffect(() => {
-        console.log('useEffect')
         dispatch(addGoodsTC())
-        return()=>{
-            console.log('хана юзЭф')}
     }, [])
     return (
         <div>
@@ -27,7 +24,6 @@ function App() {
                 <Route path="/login" element={<LoginPage/>}/>
                 <Route path="/register" element={<RegisterPage/>}/>
             </Routes>
-
         </div>
     );
 }
