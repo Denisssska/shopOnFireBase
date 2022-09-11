@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Route, Routes} from "react-router-dom";
 import {HomePage} from "./Pages/HomePage";
 import {LoginPage} from "./Pages/LoginPage";
@@ -6,16 +6,24 @@ import {RegisterPage} from "./Pages/RegisterPage";
 import {NavBar} from "./components/NavBar";
 import {PublicPage} from "./Pages/PublicPage";
 import {BadgePage} from "./Pages/BadgePage";
+import {addGoodsTC} from "./Store/Slices/allGoodsSlice";
+import {useAppDispatch} from "./Hooks/Hooks";
 
 function App() {
-
+    const dispatch = useAppDispatch()
+    useEffect(() => {
+        console.log('useEffect')
+        dispatch(addGoodsTC())
+        return()=>{
+            console.log('хана юзЭф')}
+    }, [])
     return (
         <div>
             <NavBar/>
             <Routes>
-                <Route path="/" element={<HomePage/>}/>
+                <Route path="/" element={<PublicPage/>}/>
+                <Route path="/home" element={<HomePage/>}/>
                 <Route path="/badge" element={<BadgePage/>}/>
-                <Route path="/public" element={<PublicPage/>}/>
                 <Route path="/login" element={<LoginPage/>}/>
                 <Route path="/register" element={<RegisterPage/>}/>
             </Routes>

@@ -1,14 +1,19 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {InitialStateType} from "./goodsInBadgeSlice";
+import {getItemInCollection} from "../../firebase";
 
-export const addGoodsTC = createAsyncThunk('allGoods/addGoodsTC', async (goods: InitialStateType, thunkAPI) => {
+export const addGoodsTC = createAsyncThunk('allGoods/addGoodsTC', async (arg, thunkAPI) => {
     try {
-        await thunkAPI.dispatch(addAllGoods(goods))
-    } catch (e) {
+        const res = await getItemInCollection('котлы')
+        thunkAPI.dispatch(addAllGoods(res))
+        // thunkAPI.dispatch(addAllGoods([{'1':'1'}]))
+    }
+
+    catch (e) {
         console.log(e)
     }
 })
-export const changeInBadgeTC = createAsyncThunk('allGoods/changeInBadgeTC', async (good:InitialStateType, thunkAPI) => {
+export const changeInBadgeTC = createAsyncThunk('allGoods/changeInBadgeTC', async (good: InitialStateType, thunkAPI) => {
     try {
         return await thunkAPI.dispatch(changeInBadge(good))
     } catch (e) {
@@ -29,7 +34,9 @@ const allGoodsSlice = createSlice({
     initialState,
     reducers: {
         addAllGoods(state, action) {
-            state.push(action.payload)
+           // console.log(action.payload)
+            // state = action.payload
+             state.push(...action.payload)
         },
         changeInBadge(state, action) {
             const index = state.findIndex(item => item.id === action.payload.id)

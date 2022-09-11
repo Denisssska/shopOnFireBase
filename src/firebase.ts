@@ -38,10 +38,12 @@ export const addItemInCollection = async (name: string, email: string | null | u
 export const getItemInCollection = async (pathName: string) => {
     try {
         const querySnapshot = await getDocs(collection(db, pathName));
-        querySnapshot.forEach((doc) => {
-            //console.log(`${doc.id} => ${doc.data()}`);
-        });
-        return querySnapshot.docs.map(doc => ({...doc.data(), id: doc.id}))
+        // querySnapshot.forEach((doc) => {
+        //     //console.log(`${doc.id} => ${doc.data()}`);
+        // });
+        return querySnapshot.docs.map(doc => ({...doc.data(),
+            id: doc.id
+        }))
     } catch (e) {
         console.error("Error adding document: ", e);
     }

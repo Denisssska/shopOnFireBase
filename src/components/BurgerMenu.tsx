@@ -41,8 +41,8 @@ export const BurgerMenu = () => {
                     'aria-labelledby': 'basic-button',
                 }}
             >
-                <MenuItem onClick={handleClose}><NavLink to='/'>AdminPage</NavLink></MenuItem>
-                <MenuItem onClick={handleClose}><NavLink to='/public'>PublicPage</NavLink></MenuItem>
+                <MenuItem onClick={handleClose}><NavLink to='/home'>AdminPage</NavLink></MenuItem>
+                <MenuItem onClick={handleClose}><NavLink to='/'>PublicPage</NavLink></MenuItem>
                 <MenuItem onClick={logout}>Logout</MenuItem>
             </Menu>
         </div>

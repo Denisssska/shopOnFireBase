@@ -21,17 +21,10 @@ const Item = styled(Paper)(({theme}) => ({
 }));
 export const PublicPage = React.memo(() => {
 
-    useEffect(() => {
-        getItemInCollection('котлы').then(res => {
-            // @ts-ignore
-            res && res.map(item => dispatch(addGoodsTC(item)))
-        })
 
-    }, [])
     const good = useGoodsFromBadge();
-    console.log(good)
+    //console.log(good)
     const allGoods = useAppSelector(state => state.allGoods) as Array<InitialStateType>
-
     const [user] = useAuthState(auth)
     const dispatch = useAppDispatch()
 

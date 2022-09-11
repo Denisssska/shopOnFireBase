@@ -4,9 +4,10 @@ import {GoogleAuthProvider, signInWithPopup} from "firebase/auth";
 import {Navigate} from "react-router-dom";
 import {auth} from "../firebase";
 import {useAuthState} from "react-firebase-hooks/auth";
+import {Button} from "@mui/material";
 
 
-export const Login = () => {
+export const Login = React.memo(() => {
     // getRedirectResult(auth)  получить токен OAuth провайдера Google
     const [user] = useAuthState(auth)
 
@@ -48,11 +49,11 @@ export const Login = () => {
     //     });
     // }
     if (user) {
-        return <Navigate to={'/public'}/>
+        return <Navigate to={'/'}/>
     }
 
     return <Form title="Login" handleClick={signInWithGoogle}/>
 
 
-};
+});
 
