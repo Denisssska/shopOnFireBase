@@ -7,38 +7,19 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper'
 import {useGoodsFromBadge} from "../Hooks/useGoodsFromBadge";
-import {Button, ButtonGroup, TextField} from "@mui/material";
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
-import {ChangeEvent, useState} from "react";
+import {Button} from "@mui/material";
 import {useAppDispatch} from "../Hooks/Hooks";
-import {InitialStateType, removeGoodFromBadge, removeGoodsFromBadgeTC} from "../Store/Slices/goodsInBadgeSlice";
+import {InitialStateType, removeGoodsFromBadgeTC} from "../Store/Slices/goodsInBadgeSlice";
+import {ChangePrice} from "./ChangeHandler";
 
 export const BasicTable = React.memo(() => {
-
-    const [number, setNumber] = useState(1)
-    const [newPrice, setNewPrice] = useState(0)
     const rows = useGoodsFromBadge()
     const dispatch = useAppDispatch()
     const rowsPrice = rows.map(item => item.price)
-    const sum = rowsPrice.reduce((acc, number) => acc + number, 0);
-    console.log(rowsPrice)
-    // const deleteGoodsFromBadge = (id: string) => {
-    //     dispatch(removeGoodsFromBadgeTC({id}))
-    // }
-    const deleteGoodsFromBadge = (good:InitialStateType) => {
+    const sum = rowsPrice.reduce((acc, num) => acc + num, 0);
+
+    const deleteGoodsFromBadge = (good: InitialStateType) => {
         dispatch(removeGoodsFromBadgeTC(good))
-    }
-    const changeNumber = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setNumber(+e.currentTarget.value)
-    }
-    const addHandler = (price: number) => {
-        setNumber(number + 1)
-        setNewPrice(newPrice + price)
-    }
-    const removeHandler = (price: number) => {
-        setNumber(number - 1)
-        setNewPrice(newPrice - price)
     }
 
     return (
@@ -66,19 +47,10 @@ export const BasicTable = React.memo(() => {
                             <TableCell sx={{padding: 2}} align="center"><img src={row.photo} alt="boiler"/></TableCell>
                             <TableCell sx={{padding: 2}} align="center">{row.goodsName}</TableCell>
                             <TableCell sx={{padding: 2}} align="center">
-                                <ButtonGroup sx={{justifyContent: 'center'}} variant='outlined'
-                                             aria-label="outlined button group">
-                                    <Button component={'div'} disabled={number === 10}
-                                            onClick={() => addHandler(row.price)}><AddIcon/></Button>
-                                    <TextField sx={{width: '20%', alignItems: 'center'}}
-                                               value={number < 1 || number > 10 ? 1 : number}
-                                               onChange={changeNumber}/>
-                                    <Button component={'div'} disabled={number <= 1}
-                                            onClick={() => removeHandler(row.price)}><RemoveIcon/></Button>
-                                </ButtonGroup>
+                                <ChangePrice row={row}/>
                             </TableCell>
                             <TableCell sx={{padding: 2}}
-                                       align="center">{row.price + newPrice}</TableCell>
+                                       align="center">{row.price}</TableCell>
                             <TableCell sx={{padding: 2}} align="center">
                                 <Button
                                     onClick={() => deleteGoodsFromBadge(row)} variant='outlined'>Удалить</Button>

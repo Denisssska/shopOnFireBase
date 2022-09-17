@@ -6,16 +6,15 @@ export const addGoodsTC = createAsyncThunk('allGoods/addGoodsTC', async (arg, th
     try {
         const res = await getItemInCollection('котлы')
         thunkAPI.dispatch(addAllGoods(res))
-        // thunkAPI.dispatch(addAllGoods([{'1':'1'}]))
-    }
-
-    catch (e) {
+        const all = JSON.stringify(res)
+        localStorage.setItem('allGoods', all)
+    } catch (e) {
         console.log(e)
     }
 })
-export const changeInBadgeTC = createAsyncThunk('allGoods/changeInBadgeTC', async (good: InitialStateType, thunkAPI) => {
+export const updateStateTC = createAsyncThunk('allGoods/changeInBadgeTC', async (good: InitialStateType, thunkAPI) => {
     try {
-        return await thunkAPI.dispatch(changeInBadge(good))
+        return await thunkAPI.dispatch(updateState(good))
     } catch (e) {
         console.log(e)
     }
@@ -34,11 +33,9 @@ const allGoodsSlice = createSlice({
     initialState,
     reducers: {
         addAllGoods(state, action) {
-           // console.log(action.payload)
-            // state = action.payload
-             state.push(...action.payload)
+            state.push(...action.payload)
         },
-        changeInBadge(state, action) {
+        updateState(state, action) {
             const index = state.findIndex(item => item.id === action.payload.id)
             if (index > -1) {
                 state[index] = {...state[index], ...action.payload}
@@ -57,6 +54,6 @@ const allGoodsSlice = createSlice({
     //     })
     // }
 })
-export const {addAllGoods, removeAllGoodsState, changeInBadge} = allGoodsSlice.actions;
+export const {addAllGoods, removeAllGoodsState, updateState} = allGoodsSlice.actions;
 export default allGoodsSlice.reducer
 

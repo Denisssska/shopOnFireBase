@@ -1,22 +1,14 @@
-import React, {useCallback, useState} from 'react';
+import React from 'react';
 import {Button} from "@mui/material";
 
 type FormProps = {
     title: string
-    // handleClick: (email: string, password: string) => void
-    handleClick:()=>void
+    handleClick: () => void
 }
 export const Form: React.FC<FormProps> = React.memo(({title, handleClick}) => {
-    // const [email, setEmail] = useState('')
-    // const [pass, setPass] = useState('')
     return (
         <div>
-            {/*<input type="email" placeholder='email' value={email}*/}
-            {/*       onChange={(e) => setEmail(e.currentTarget.value)}/>*/}
-            {/*<input type="password" placeholder='password' value={pass}*/}
-            {/*       onChange={(e) => setPass(e.currentTarget.value)}/>*/}
-            {/*<div><Button onClick={() => handleClick(email, pass)} variant={"outlined"}>{title}</Button></div>*/}
-            <div><Button onClick={handleClick} variant={"outlined"}>{title}</Button></div>
+            <Button onClick={handleClick} variant={"outlined"}>{title}</Button>
         </div>
     );
 });

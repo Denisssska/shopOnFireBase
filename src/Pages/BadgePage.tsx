@@ -8,7 +8,7 @@ export const BadgePage = React.memo(() => {
     const rows = useGoodsFromBadge()
     return (
         <div>
-            <NavLink style={{textDecoration: 'none'}} to='/public'>
+            <NavLink style={{textDecoration: 'none'}} to='/'>
                 <div style={{display: 'flex', alignItems: 'center', marginLeft: '10px'}}><WestIcon/><h3
                     style={{marginLeft: '10px'}}>Back to shop</h3></div>
             </NavLink>

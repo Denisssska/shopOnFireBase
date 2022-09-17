@@ -1,16 +1,14 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback} from 'react';
 import {styled} from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import {Navigate} from "react-router-dom";
 import {useAuthState} from "react-firebase-hooks/auth";
-import {auth, db, getItemInCollection} from "../firebase";
+import {auth, db} from "../firebase";
 import {Button} from "@mui/material";
 import {addGoodsInBadgeTC, InitialStateType} from "../Store/Slices/goodsInBadgeSlice";
 import {useAppDispatch, useAppSelector} from "../Hooks/Hooks";
-import {useGoodsFromBadge} from "../Hooks/useGoodsFromBadge";
-import {addGoodsTC} from "../Store/Slices/allGoodsSlice";
 import {useCollectionData} from "react-firebase-hooks/firestore";
 import {collection} from "firebase/firestore";
 
@@ -22,15 +20,15 @@ const Item = styled(Paper)(({theme}) => ({
     color: theme.palette.text.secondary,
 }));
 export const PublicPage = React.memo(() => {
-    const [messages, loading] = useCollectionData(collection(db, 'котлы'))
+    // const [messages, loading] = useCollectionData(collection(db, 'котлы'))
     const allGoods = useAppSelector(state => state.allGoods) as Array<InitialStateType>
     const [user] = useAuthState(auth)
     const dispatch = useAppDispatch()
 
     const addInBadge = useCallback((good: InitialStateType) => {
         dispatch(addGoodsInBadgeTC({...good, inBadge: true}))
+
     }, [])
-    console.log(allGoods)
 
     return user ? (
         <Box>
