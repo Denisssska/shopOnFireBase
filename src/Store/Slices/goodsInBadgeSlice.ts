@@ -22,6 +22,7 @@ export const addGoodsInBadgeTC = createAsyncThunk('goods/addGoodsInBadgeTC', asy
         await thunkAPI.dispatch(addGoodsInBadge({...good, inBadge: true}))
         await thunkAPI.dispatch(updateStateTC(good))
         mass.push(good)
+        console.log(mass)
         const all = JSON.stringify(mass)
         localStorage.setItem('goodsInBadge', all)
         //localStorage.clear();
@@ -37,10 +38,20 @@ export const updateGoodInBadgeTC = createAsyncThunk('goods/updateGoodInBadgeTC',
     }
 })
 export const removeGoodsFromBadgeTC = createAsyncThunk('goods/removeGoodsFromBadgeTC', async (good: InitialStateType, thunkAPI) => {
+    mass = mass.filter(item => item.id !== good.id)
     try {
+        console.log(mass)
         await thunkAPI.dispatch(removeGoodFromBadge(good))
         await thunkAPI.dispatch(updateStateTC({...good, inBadge: false}))
-        localStorage.setItem('goodsInBadge',JSON.stringify(mass.filter(item =>item.id !==good.id)))
+        localStorage.setItem('goodsInBadge', JSON.stringify(mass))
+    } catch (e) {
+        console.log(e)
+    }
+})
+export const removeStateInBadgeTC = createAsyncThunk('goods/removeStateInBadgeTC', async (arg, thunkAPI) => {
+    try {
+        await thunkAPI.dispatch(removeStateInBadge())
+        //localStorage.removeItem('goodsInBadge')
     } catch (e) {
         console.log(e)
     }
@@ -67,7 +78,8 @@ const goodsInBadgeSlice = createSlice({
             }
         },
         removeStateInBadge(state) {
-            state = []
+            //console.log(state)
+            state.length = 0
         }
     }
 })

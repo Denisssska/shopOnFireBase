@@ -14,13 +14,12 @@ function App() {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-       // localStorage.clear()
+        //localStorage.clear()
         dispatch(addGoodsTC())
         const allFromLocSt = localStorage.getItem('goodsInBadge');
         if (allFromLocSt) {
             const res = JSON.parse(allFromLocSt)
             res.map((item: InitialStateType)=>dispatch(addGoodsInBadgeTC(item)))
-
         }
     }, [])
 
